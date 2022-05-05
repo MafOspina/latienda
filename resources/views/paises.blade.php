@@ -12,7 +12,7 @@
     <h1>Paises de la regiòn</h1>
 
     <table class="table table-bordered table-stripped">
-        <thead>
+        <thead class="table-dark">
             <tr>
                 <th>Nombre</th>
                 <th>Capital</th>
@@ -25,24 +25,24 @@
         <tbody>
             @foreach($paises as $pais=> $infopais)
                 <tr>
-                    <td rowspan= '{{ count($infopais["ciudades"]) }}'>
+                    <td rowspan= '{{ count($infopais["ciudades"]) }}' class="table-primary">
                         {{ $pais}}
                     </td>
 
-                    <td rowspan='{{ count($infopais["ciudades"]) }}'>
+                    <td rowspan='{{ count($infopais["ciudades"]) }}' class="table-secondary">
                         {{ $infopais["capital"] }}
                     </td>
 
-                    <td rowspan='{{ count($infopais["ciudades"]) }}'>
+                    <td rowspan='{{ count($infopais["ciudades"]) }}' class="table-success">
                         {{ $infopais["moneda"] }}
                     </td>
 
-                    <td rowspan='{{ count($infopais["ciudades"]) }}'>
+                    <td rowspan='{{ count($infopais["ciudades"]) }}' class="table-danger">
                         {{ $infopais["población"] }}
-                    </td>
+                    </td class="table-warning">
 
                     @foreach( $infopais["ciudades"] as $ciudad)
-                        <th>
+                        <th class="table-info">
                             {{ $ciudad }}
                         </th>
                     </tr>
