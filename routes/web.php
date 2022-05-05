@@ -52,7 +52,7 @@ Route::get('paises', function(){
         "Colombia" => [
             "capital" => "Bogotà",
             "moneda" => "Peso",
-            "poblaciòn" => 51,
+            "población" => 51,
 
             "ciudades" =>[
                 "Medellìn",
@@ -64,7 +64,7 @@ Route::get('paises', function(){
         "Peru" => [
             "capital" => "Lima",
             "moneda" => "Sol",
-            "poblaciòn" => 32,
+            "población" => 32,
 
             "ciudades" =>[
                 "Arequipa",
@@ -74,7 +74,7 @@ Route::get('paises', function(){
         "Paraguay" => [
             "capital" => "Asunciòn",
             "moneda" => "Guaranì",
-            "poblaciòn" => 7,
+            "población" => 7,
 
             "ciudades" =>[
                 "Luque"
@@ -83,12 +83,20 @@ Route::get('paises', function(){
         "Ecuador" => [
             "capital" => "Quito",
             "moneda" => "USD",
-            "poblaciòn" => 17
+            "población" => 17,
+
+            "ciudades" =>[
+                "Luque"
+            ]
         ],
         "Chile" => [
             "capital" => "Santiago",
             "moneda" => "Peso",
-            "poblaciòn" => 19
+            "población" => 19,
+
+            "ciudades" =>[
+                "Luque"
+            ]
         ]
     ];
 
