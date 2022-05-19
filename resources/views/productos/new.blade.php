@@ -34,6 +34,20 @@
         </div>
 
         <div class="row">
+        <div class="input-field col s6">
+            <select name="" id="marca" >
+                @foreach($marcas as $marca)
+                    <option value="">
+                        {{ $marca->nombre }}
+                    </option>
+                @endforeach
+            </select>
+            <label for="marca">Elija la marca</label>
+        </div>
+
+        </div>
+
+        <div class="row">
             <div class="file-field input-field col s6">
                 <div class="btn">
                     <span>Imagen producto</span>
