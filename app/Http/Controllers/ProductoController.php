@@ -6,6 +6,7 @@ use App\Models\Categoria;
 use App\Models\Marca;
 use App\Models\Producto;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class ProductoController extends Controller
 {
@@ -43,9 +44,56 @@ class ProductoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        //
+    public function store(Request $r)
+    {   
+        //1. establecer las reglas de validaciòn que aploques a cada campo
+        $reglas =[
+          "nombre" => 'required|alpha',
+          "desc" => 'required|min:20|max:50',
+          "precio" => 'required|numeric',
+          "marca" => 'required'
+        ];
+          //mensajes
+          $mensajes = [
+           "required" => "Campo obligatorio",
+           "alpha" => "Solo letras",
+           "min"=> "Mínimo 20 carácteres",
+           "max"=> "Máximo 50 carácteres",
+           "numeric" =>"Solo números"
+          ];
+         
+
+        //2.crear el objeto validador
+        $v = Validator::make($r->all(), 
+                             $reglas,
+                             $mensajes
+                            );
+
+        //3. Validar la input data
+        if($v->fails()){
+         //validacion fallida, redireccionar al formulario
+         return redirect('productos/create')
+             ->withErrors($v)
+             ->withInput();
+      
+        }else{
+            //validacion correcta
+             //crear nuevo producto<<entity>>
+        $p = new Producto;
+        // asignamos valores a los atributos
+        $p->nombre = $r->nombre;
+        $p->desc = $r->desc;
+        $p->precio = $r->precio;
+        $p->marca_id = $r->marca;
+        $p->categoria_id = $r->categoria;
+        //guardar en db
+        $p->save();
+        //redireccionar al formulario con mensaje de exito(session)
+        return redirect('productos/create')
+        ->with('mensajito' , "Producto registrado");
+
+        }
+      
     }
 
     /**
