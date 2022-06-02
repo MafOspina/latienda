@@ -46,12 +46,15 @@ class ProductoController extends Controller
      */
     public function store(Request $r)
     {   
+
         //1. establecer las reglas de validaciòn que aploques a cada campo
         $reglas =[
           "nombre" => 'required|alpha',
           "desc" => 'required|min:20|max:50',
           "precio" => 'required|numeric',
-          "marca" => 'required'
+          "marca" => 'required',
+          "categoria" => 'required',
+          "imagen" => 'required|image'
         ];
           //mensajes
           $mensajes = [
@@ -59,7 +62,8 @@ class ProductoController extends Controller
            "alpha" => "Solo letras",
            "min"=> "Mínimo 20 carácteres",
            "max"=> "Máximo 50 carácteres",
-           "numeric" =>"Solo números"
+           "numeric" =>"Solo números",
+           "image" => "Debe ser una imagen"
           ];
          
 
@@ -77,17 +81,28 @@ class ProductoController extends Controller
              ->withInput();
       
         }else{
+        //acceder a los atributos del archivo cargado
+            $archivo = $r->imagen;
+            $nombre_archivo = $archivo->getClientOriginalName();
+        //ESTABLECER LA ubicacion donde se almacenarà el archivo
+        //analizar la input data "imagen"
+        
+            $ruta=(public_path()."/img");
+        //mover el archivo
+            $archivo->move($ruta, $nombre_archivo);
+
             //validacion correcta
              //crear nuevo producto<<entity>>
-        $p = new Producto;
+            $p = new Producto;
         // asignamos valores a los atributos
-        $p->nombre = $r->nombre;
-        $p->desc = $r->desc;
-        $p->precio = $r->precio;
-        $p->marca_id = $r->marca;
-        $p->categoria_id = $r->categoria;
+            $p->nombre = $r->nombre;
+            $p->desc = $r->desc;
+            $p->imagen = $nombre_archivo;
+            $p->precio = $r->precio;
+            $p->marca_id = $r->marca;
+            $p->categoria_id = $r->categoria;
         //guardar en db
-        $p->save();
+             $p->save();
         //redireccionar al formulario con mensaje de exito(session)
         return redirect('productos/create')
         ->with('mensajito' , "Producto registrado");
